@@ -25,7 +25,7 @@ Steps:
 In the root folder create a new file, and name it “genesis.json”. Then past the following content in it.
 
 
-
+```
 {
   "difficulty" : "0x20000",
   "extraData"  : "",
@@ -38,6 +38,9 @@ In the root folder create a new file, and name it “genesis.json”. Then past 
         "eip158Block": 0
     }
 }
+```
+
+
 
 
 The file “genesis.json” is simply the configuration file that geth needs to create a new blockchain.
@@ -49,9 +52,9 @@ If you run geth without specifying any parameter, it will try to connect to the 
 
 Then run the following command in the root of your project directory:
 
-`
+```
 geth --datadir=./chaindata/ init ./genesis.json
-`
+```
 
 
 We launch geth and specify where our blockchain will be stored, here in the “chaindata” folder (it will be automatically generated), and we initialize it with our “genesis.json” configuration file.
@@ -60,27 +63,33 @@ We launch geth and specify where our blockchain will be stored, here in the “c
 
 We then start geth using the following command:
 
-`
+```
 geth --datadir=./chaindata/ --rpc --ipcpath "~/geth.ipc"
-`
+```
 
 
 Then we start Mist by using:
 
 
-`/Applications/Mist.app/Contents/MacOS/Ethereum\ Wallet --rpc "/Users/simonmullaney/geth.ipc"`
+```
+/Applications/Mist.app/Contents/MacOS/Ethereum\ Wallet --rpc "/Users/simonmullaney/geth.ipc"
+```
 
 
 We then run:
 
 
-` geth attach ipc:"/Users/simonmullaney/geth.ipc"`
+```
+geth attach ipc:"/Users/simonmullaney/geth.ipc"
+```
 
 
 
 From the geth console you can unlock your account by:
 
-`personal.unlockAccount('account_address', 'password')`
+```
+personal.unlockAccount('account_address', 'password')
+```
 
 
 Then we can deploy the first ethereum developers meetup:
@@ -91,7 +100,7 @@ Then we can deploy the first ethereum developers meetup:
 
 3) Change truffle.js file to the following:
 
-`
+```
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // for more about customizing your Truffle configuration!
@@ -108,27 +117,37 @@ module.exports = {
     }
   }
 };
-`
+```
 
 4) migrate the contract to the blockchain that geth is running (The miner must be started)
 
 
-`truffle migrate --network ourTestNet`
+```
+truffle migrate --network ourTestNet
+```
 
 
 then in the truffle console:
 
-`truffle console --network ourTestNet`
+```
+truffle console --network ourTestNet
+```
 
 in the console we can see the contract by running:
 
-`ipfs`
+```
+ipfs
+```
 
 
 Get the address by running:
 
-`ipfs.address`
+```
+ipfs.address
+```
 
 and the abi by runnning:
 
-`JSON.stringify(ipfs.abi)`
+```
+JSON.stringify(ipfs.abi)
+```
