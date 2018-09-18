@@ -32,7 +32,7 @@ In the root folder create a new file, and name it “genesis.json”. Then past 
   "gasLimit"   : "0x8000000",
   "alloc": {},
   "config": {
-        "chainId": 15,
+        "chainId": 16,
         "homesteadBlock": 0,
         "eip155Block": 0,
         "eip158Block": 0
@@ -61,5 +61,74 @@ We launch geth and specify where our blockchain will be stored, here in the “c
 We then start geth using the following command:
 
 `
-geth --datadir=./chaindata/ --rpc
+geth --datadir=./chaindata/ --rpc --ipcpath "~/geth.ipc"
 `
+
+
+Then we start Mist by using:
+
+
+`/Applications/Mist.app/Contents/MacOS/Ethereum\ Wallet --rpc "/Users/simonmullaney/geth.ipc"`
+
+
+We then run:
+
+
+` geth attach ipc:"/Users/simonmullaney/geth.ipc"`
+
+
+
+From the geth console you can unlock your account by:
+
+`personal.unlockAccount('account_address', 'password')`
+
+
+Then we can deploy the first ethereum developers meetup:
+
+1) clone the repo - `git clone https://github.com/simonmullaney/EthereumDevMeetup.git`
+
+2) then cd into it - `cd EthereumDevMeetup`
+
+3) Change truffle.js file to the following:
+
+`
+module.exports = {
+  // See <http://truffleframework.com/docs/advanced/configuration>
+  // for more about customizing your Truffle configuration!
+  networks: {
+    development: {
+      host: "127.0.0.1",
+      port: 7545,
+      network_id: "*"
+    },
+    ourTestNet: {
+      host: "127.0.0.1",
+      port: 8545,
+      network_id: "*"
+    }
+  }
+};
+`
+
+4) migrate the contract to the blockchain that geth is running (The miner must be started)
+
+
+`truffle migrate --network ourTestNet`
+
+
+then in the truffle console:
+
+`truffle console --network ourTestNet`
+
+in the console we can see the contract by running:
+
+`ipfs`
+
+
+Get the address by running:
+
+`ipfs.address`
+
+and the abi by runnning:
+
+`JSON.stringify(ipfs.abi)`
